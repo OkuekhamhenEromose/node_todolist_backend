@@ -9,3 +9,15 @@
  * Usage:
  *   throw new AppError('Todo not found', 404, 'TODO_NOT_FOUND');
  */
+class AppError extends Error {
+  constructor(message, statusCode, code = 'INTERNAL_ERROR'){
+    super(message);
+    this.statusCode = statusCode;
+    this.code = code;
+    // Mark as operational so we don't leak stack traces for known errors
+    this.isOperational = true;
+    // Capture stack trace, excluding this constructor from the trace
+  }
+}
+
+module.exports = AppError;
