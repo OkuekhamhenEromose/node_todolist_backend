@@ -58,6 +58,12 @@ if (process.env.NODE_ENV === 'development'){
 // app.use('/api/v1/auth', authRoutes);
 // app.use('/api/v1/todos', todoRoutes);
 
+// ─── ROUTES ──────────────────────────────────────────────────────────────────
+//  Why modify? We need to mount the health router so Express knows it exists. It must be mounted before the 404 catch-all handler.
+
+const healthRoutes = require('./routes/healthRoutes')
+app.use('/api/v1/health', healthRoutes)
+
 // ─── 404 HANDLER ─────────────────────────────────────────────────────────────
 
 // If no route matched above, the requested URL does not exist
