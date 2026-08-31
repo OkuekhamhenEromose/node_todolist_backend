@@ -1,3 +1,5 @@
+// Why this file? The controller is the HTTP adapter. It reads the database state and decides which HTTP status to return. It does not implement business rules — it simply reports system state
+
 const mongoose = require('mongoose')
 const catchasync = require('../utils/catchAsync')
 const AppError = require('../utils/AppError')
