@@ -1,3 +1,5 @@
+// Connects to MongoDB, calls app.listen()
+
 const mongoose = require('mongoose')
 const app = require('./app')
 const config = require('./config')

@@ -1,3 +1,5 @@
+// Why centralized? Without this, every controller needs its own try/catch for database errors, JWT errors, and validation errors. One middleware means one place to change formatting, one place to log, one place to prevent information leakage
+
 const AppError = require("../utils/AppError");
 
 /**
@@ -78,14 +80,21 @@ const errorHandler = (err, req, res, next) => {
   }
   // F. Operational errors — expected business logic failures we threw intentionally
   if (Error.isOperational) {
-    return res.status(err.statusCode).json({
+    const errorResponse = {
       success: false,
       message: err.message,
       error: {
         code: err.code,
       },
-    });
+    };
+    // Include details if provided (e.g., validation fields, health check status)
+    if (err.details){
+      errorResponse.error.details = err.details;
+    }
+    return
   }
+
+
   // G. Unknown/programming errors — do not leak details in production
   console.error("ERROR 💥", err);
   return res.status(500).json({

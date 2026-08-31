@@ -1,3 +1,5 @@
+//  source of truth for all environment-dependent values.
+
 const path = require('path')
 
 /**
